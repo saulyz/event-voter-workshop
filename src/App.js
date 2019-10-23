@@ -1,22 +1,69 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import React, { useState } from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import ReactionList from './ReactionList';
+import Dashboard from './Dashboard';
+import VideoStream from './VideoStream';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  root: {
+    height: '100vh',
+    width: '100vw',
+    display: 'flex'
+  },
+  left1: {
+    height: '100%',
+    width: '50%',
+    backgroundColor: 'red',
+    overflow: 'scroll'
+  },
+  right1: {
+    height: '100%',
+    width: '50%'
+  },
+  right1_1: {
+    height: '50%',
+    width: '100%',
+    backgroundColor: 'blue',
+    overflow: 'scroll'
+  },
+  right1_2: {
+    height: '50%',
+    width: '100%',
+    backgroundColor: 'green'
+  }
+});
 
 function App() {
-  return (
-    <Grid container>
-        <Grid item xs={6} style={{backgroundColor: 'green'}}>
-            A
-        </Grid>
-        <Grid item xs={6} direction="row" justify="center" alignItems="center">
-          <Grid item xs={12} style={{backgroundColor: 'red'}}>
-            B
-          </Grid>
-          <Grid item xs={12} style={{backgroundColor: 'red'}}>
-            C
-          </Grid>
-        </Grid>
+  const classes = useStyles();
+  const [reactions, setReactions] = useState([]);
 
-    </Grid>
+  function addReaction(reaction) {
+    setReactions(previousReaction => [reaction, ...previousReaction]);
+  }
+
+  const validScores = reactions.filter(r => r.score).map(r => r.score);
+
+  const scoreSum = validScores.reduce((a, b) => a + b, 0);
+  const averageScore = validScores.length ? scoreSum / validScores.length : 0;
+
+  return (
+    <>
+      <CssBaseline />
+      <div className={classes.root}>
+        <div className={classes.left1}>
+          <ReactionList reactions={reactions} onAddReaction={addReaction} />
+        </div>
+        <div className={classes.right1}>
+          <div className={classes.right1_1}>
+            <VideoStream />
+          </div>
+          <div className={classes.right1_2}>
+            <Dashboard averageScore={averageScore} />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 
