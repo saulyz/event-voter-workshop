@@ -42,11 +42,6 @@ function App() {
     setReactions(previousReaction => [reaction, ...previousReaction]);
   }
 
-  const validScores = reactions.filter(r => r.score).map(r => r.score);
-
-  const scoreSum = validScores.reduce((a, b) => a + b, 0);
-  const averageScore = validScores.length ? scoreSum / validScores.length : 0;
-
   return (
     <>
       <CssBaseline />
@@ -59,7 +54,7 @@ function App() {
             <VideoStream />
           </div>
           <div className={classes.right1_2}>
-            <Dashboard averageScore={averageScore} />
+            <Dashboard reactions={reactions} />
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AddReactionForm from './AddReactionForm';
 import ScoreIcon from './ScoreIcon';
-import { Dialog } from '@material-ui/core';
+import { Dialog, Button } from '@material-ui/core';
 
 export default function ReactionList({ reactions, onAddReaction }) {
   const [formVisible, setFormVisible] = useState(false);
@@ -22,7 +22,14 @@ export default function ReactionList({ reactions, onAddReaction }) {
           </li>
         ))}
       </ul>
-      <button onClick={() => setFormVisible(true)}>Add Reaction</button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => setFormVisible(true)}
+      >
+        Add Reaction
+      </Button>
+
       <Dialog onClose={closeForm} open={formVisible}>
         <AddReactionForm onAddReaction={handleAddReaction} />
       </Dialog>
