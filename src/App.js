@@ -30,10 +30,22 @@ function App() {
   const app = firebase.initializeApp(firebaseConfig);
 
   /*
-  var participants = firebase.database().ref('/participants/').once('value').then(function(snapshot) {
+  var participants = firebase.database().ref('/feedback/').once('value').then(function(snapshot) {
     console.log(snapshot.val()); // (snapshot.val() && snapshot.val().username) || 'Anonymous';
 
   });
+   */
+
+  /*
+  function writeUserData(name, rating) {
+  let now = new Date();
+  let userId = now.getTime();
+  firebase.database().ref('feedback/' + userId).set({
+    name: name,
+    datetime: now.getFullYear() + "-" + now.getMonth() + "-" + now.getDay() + " " + now.getHours() + ":" + now.getMinutes();,
+    rating : rating
+  });
+}
    */
 
   function hideFeedbackForm() {
