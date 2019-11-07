@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import * as firebase from 'firebase';
 import FeedbackList from './FeedbackList';
@@ -10,50 +10,53 @@ import './App.css';
 
 function App() {
   const [feedbackFormVisible, setFeedbackFormVisible] = useState(false);
-  const [feedbackList, setFeedbackList] = useState([
-    {
-      text: 'Very nais',
-      score: 10,
-      id: 1
-    }
-  ]);
+  const [initialized, setInitialized] = useState(false);
+  const [feedbackList, setFeedbackList] = useState([]);
 
   const firebaseConfig = {
-    apiKey: "AIzaSyDlmqcy_Wwwjiggko1y5YlSX8cWFRMXbks",
-    authDomain: "we-can-code-2019.firebaseapp.com",
-    databaseURL: "https://we-can-code-2019.firebaseio.com",
-    projectId: "we-can-code-2019",
-    storageBucket: "we-can-code-2019.appspot.com",
-    messagingSenderId: "33900536726",
-    appId: "1:33900536726:web:d7fd5cc94c26370440f3b7"
+    apiKey: 'AIzaSyDlmqcy_Wwwjiggko1y5YlSX8cWFRMXbks',
+    authDomain: 'we-can-code-2019.firebaseapp.com',
+    databaseURL: 'https://we-can-code-2019.firebaseio.com',
+    projectId: 'we-can-code-2019',
+    storageBucket: 'we-can-code-2019.appspot.com',
+    messagingSenderId: '33900536726',
+    appId: '1:33900536726:web:d7fd5cc94c26370440f3b7'
   };
-  const app = firebase.initializeApp(firebaseConfig);
 
-  /*
-  var participants = firebase.database().ref('/feedback/').once('value').then(function(snapshot) {
-    console.log(snapshot.val()); // (snapshot.val() && snapshot.val().username) || 'Anonymous';
+  useEffect(() => {
+    firebase.initializeApp(firebaseConfig);
+    setInitialized(true);
+  }, [setInitialized]);
 
-  });
-   */
-
-  /*
-  function writeUserData(name, rating) {
-  let now = new Date();
-  let userId = now.getTime();
-  firebase.database().ref('feedback/' + userId).set({
-    name: name,
-    datetime: now.getFullYear() + "-" + now.getMonth() + "-" + now.getDay() + " " + now.getHours() + ":" + now.getMinutes(),
-    rating : rating
-  });
-}
-   */
+  useEffect(() => {
+    if (initialized) {
+      firebase
+        .database()
+        .ref('/feedback/')
+        .once('value')
+        .then(function(snapshot) {
+          const feedbackList = Object.entries(snapshot.val()).map(
+            ([id, feedback]) => ({ id, ...feedback })
+          );
+          setFeedbackList(feedbackList);
+        });
+    }
+  }, [initialized]);
 
   function hideFeedbackForm() {
     setFeedbackFormVisible(false);
   }
 
   function addFeedback(feedback) {
-    setFeedbackList(previousList => [feedback, ...previousList]);
+    let now = new Date();
+    let userId = now.getTime();
+    firebase
+      .database()
+      .ref('feedback/' + userId)
+      .set({
+        ...feedback,
+        datetime: now.toUTCString()
+      });
     hideFeedbackForm();
   }
 
