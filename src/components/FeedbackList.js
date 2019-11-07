@@ -19,7 +19,7 @@ export default function FeedbackList({ feedbackList }) {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary="Mike"
+            primary={feedback.name}
             secondary={<> {feedback.datetime} {feedback.text}</>}
           />
         </ListItem>

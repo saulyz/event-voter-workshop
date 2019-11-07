@@ -13,12 +13,13 @@ import './AddFeedbackForm.css';
 export default function AddFeedbackForm({ onAddFeedback, onCancel }) {
   const [text, setText] = useState('');
   const [score, setScore] = useState(null);
+  const [name, setName] = useState('Anonymous');
 
   function handleFormSubmit() {
     onAddFeedback({
       text,
       score,
-      name: 'Rick Sanchez',
+      name,
       id: Math.random()
     });
   }
@@ -59,6 +60,13 @@ export default function AddFeedbackForm({ onAddFeedback, onCancel }) {
             <ThumbDownIcon />
           </IconButton>
         </div>
+        <TextField
+          id="feedback-text"
+          label="Name"
+          fullWidth
+          margin="normal"
+          onChange={e => setName(e.target.value)}
+        />
         <TextField
           id="feedback-text"
           label="Your comments"
