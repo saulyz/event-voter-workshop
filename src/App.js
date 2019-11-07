@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import * as firebase from 'firebase';
 import FeedbackList from './FeedbackList';
 import Dashboard from './Dashboard';
 import VideoStream from './VideoStream';
@@ -16,6 +17,24 @@ function App() {
       id: 1
     }
   ]);
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDlmqcy_Wwwjiggko1y5YlSX8cWFRMXbks",
+    authDomain: "we-can-code-2019.firebaseapp.com",
+    databaseURL: "https://we-can-code-2019.firebaseio.com",
+    projectId: "we-can-code-2019",
+    storageBucket: "we-can-code-2019.appspot.com",
+    messagingSenderId: "33900536726",
+    appId: "1:33900536726:web:d7fd5cc94c26370440f3b7"
+  };
+  const app = firebase.initializeApp(firebaseConfig);
+
+  /*
+  var participants = firebase.database().ref('/participants/').once('value').then(function(snapshot) {
+    console.log(snapshot.val()); // (snapshot.val() && snapshot.val().username) || 'Anonymous';
+
+  });
+   */
 
   function hideFeedbackForm() {
     setFeedbackFormVisible(false);
