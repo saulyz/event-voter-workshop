@@ -20,7 +20,7 @@ export default function FeedbackList({ feedbackList }) {
           </ListItemAvatar>
           <ListItemText
             primary="Mike"
-            secondary={<> 2019.12.01 18:30 {feedback.text}</>}
+            secondary={<> {feedback.datetime} {feedback.text}</>}
           />
         </ListItem>
       ))}

@@ -35,9 +35,9 @@ function App() {
         .ref('/feedback/')
         .once('value')
         .then(function(snapshot) {
-          const feedbackList = Object.entries(snapshot.val()).map(
-            ([id, feedback]) => ({ id, ...feedback })
-          );
+          const feedbackList = Object.entries(snapshot.val())
+            .map(([id, feedback]) => ({ id, ...feedback }))
+            .sort((a, b) =>  Date.parse(b.datetime) - Date.parse(a.datetime));
           setFeedbackList(feedbackList);
         });
     }
