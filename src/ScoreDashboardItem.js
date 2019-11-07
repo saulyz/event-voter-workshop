@@ -1,71 +1,22 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { red, green } from '@material-ui/core/colors';
-import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import RemoveIcon from '@material-ui/icons/Remove';
-import { Typography } from '@material-ui/core';
-
-const useStyles = makeStyles(() => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    padding: '20px'
-  },
-  box: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  scoreIconUp: {
-    backgroundColor: green[200]
-  },
-  scoreIconDown: {
-    backgroundColor: red[200]
-  },
-  scoreboardItem: {
-    margin: '0 10px'
-  }
-}));
+import ScoreIcon from './ScoreIcon';
+import './ScoreDashboardItem.css';
 
 export default function ScoreDashboardItem({ likes, dislikes }) {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
-      <Box className={classes.box}>
-        <div>
-          <Typography
-            className={classes.scoreboardItem}
-            component="span"
-            variant="h4"
-          >
-            {likes || 0}
-          </Typography>
-        </div>
-        <Avatar className={classes.scoreIconUp} variant="rounded">
-          <ThumbUpIcon />
-        </Avatar>
-      </Box>
-      <Box className={classes.scoreboardItem}>
+    <div className="dashboard-score">
+      <div className="dashboard-score__box">
+        <h4 className="dashboard-score__scoreboard-item">{likes || 0}</h4>
+        <ScoreIcon score={10} />
+      </div>
+      <div className="dashboard-score__scoreboard-item">
         <RemoveIcon />
-      </Box>
-      <Box className={classes.box}>
-        <Avatar className={classes.scoreIconDown} variant="rounded">
-          <ThumbDownIcon />
-        </Avatar>
-        <Typography
-          className={classes.scoreboardItem}
-          component="span"
-          variant="h4"
-        >
-          {dislikes || 0}
-        </Typography>
-      </Box>
+      </div>
+      <div className="dashboard-score__box">
+        <ScoreIcon score={1} />
+        <h4 className="dashboard-score__scoreboard-item">{dislikes || 0}</h4>
+      </div>
     </div>
   );
 }

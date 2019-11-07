@@ -4,8 +4,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
-import './FeedbackList.css';
 import List from '@material-ui/core/List';
+
+import './FeedbackList.css';
 
 export default function FeedbackList({ feedbackList }) {
   return (

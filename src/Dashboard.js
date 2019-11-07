@@ -1,6 +1,6 @@
 import React from 'react';
 import ScoreDashboardItem from './ScoreDashboardItem';
-import { Box, makeStyles, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default function Dashboard({ feedbackList = [] }) {

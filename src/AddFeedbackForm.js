@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { red, green } from '@material-ui/core/colors';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -12,17 +10,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import './AddFeedback.css';
+import './AddFeedbackForm.css';
 
 const useStyles = makeStyles(() => ({
-  fab: {
-    margin: 0,
-    top: 'auto',
-    right: 20,
-    bottom: 20,
-    left: 'auto',
-    position: 'fixed'
-  },
   ratingUpActive: {
     color: green[900],
     backgroundColor: green[200]
@@ -33,9 +23,8 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function AddFeedbackForm({ onAddFeedback }) {
+export default function AddFeedbackForm({ onAddFeedback, onCancel }) {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
   const [text, setText] = useState('');
   const [score, setScore] = useState(null);
 
@@ -45,15 +34,6 @@ export default function AddFeedbackForm({ onAddFeedback }) {
       score,
       id: Math.random()
     });
-    handleClose();
-  }
-
-  function handleClickOpen() {
-    setOpen(true);
-  }
-
-  function handleClose() {
-    setOpen(false);
   }
 
   function handleClickLike() {
@@ -65,18 +45,10 @@ export default function AddFeedbackForm({ onAddFeedback }) {
   }
 
   return (
-    <div>
-      <Fab
-        className={classes.fab}
-        color="primary"
-        aria-label="add"
-        onClick={handleClickOpen}
-      >
-        <AddIcon />
-      </Fab>
+    <>
       <Dialog
-        open={open}
-        onClose={handleClose}
+        open
+        onClose={onCancel}
         aria-labelledby="form-dialog-title"
         maxWidth="sm"
         fullWidth={true}
@@ -111,7 +83,7 @@ export default function AddFeedbackForm({ onAddFeedback }) {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="default">
+          <Button onClick={onCancel} color="default">
             Cancel
           </Button>
           <Button
@@ -124,6 +96,6 @@ export default function AddFeedbackForm({ onAddFeedback }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }
