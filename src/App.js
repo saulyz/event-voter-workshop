@@ -1,63 +1,42 @@
 import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import ReactionList from './ReactionList';
+import FeedbackList from './FeedbackList';
 import Dashboard from './Dashboard';
 import VideoStream from './VideoStream';
-import { makeStyles } from '@material-ui/core/styles';
+import AddFeedbackForm from './AddFeedbackForm';
 
-const useStyles = makeStyles({
-  root: {
-    height: '100vh',
-    width: '100vw',
-    display: 'flex'
-  },
-  left1: {
-    height: '100%',
-    width: '50%',
-    backgroundColor: 'red',
-    overflow: 'scroll'
-  },
-  right1: {
-    height: '100%',
-    width: '50%'
-  },
-  right1_1: {
-    height: '50%',
-    width: '100%',
-    backgroundColor: 'blue',
-    overflow: 'scroll'
-  },
-  right1_2: {
-    height: '50%',
-    width: '100%',
-    backgroundColor: 'green'
-  }
-});
+import './App.css';
 
 function App() {
-  const classes = useStyles();
-  const [reactions, setReactions] = useState([]);
+  const [feedbackList, setFeedbackList] = useState([
+    {
+      text: 'Very nais',
+      score: 10,
+      id: 1
+    }
+  ]);
 
-  function addReaction(reaction) {
-    setReactions(previousReaction => [reaction, ...previousReaction]);
+  function addFeedback(feedback) {
+    setFeedbackList(previousList => [feedback, ...previousList]);
   }
 
   return (
     <>
       <CssBaseline />
-      <div className={classes.root}>
-        <div className={classes.left1}>
-          <ReactionList reactions={reactions} onAddReaction={addReaction} />
+      <div className="root">
+        <div className="left1">
+          <FeedbackList feedbackList={feedbackList} />
         </div>
-        <div className={classes.right1}>
-          <div className={classes.right1_1}>
+        <div className="right1">
+          <div className="right1_1">
             <VideoStream />
           </div>
-          <div className={classes.right1_2}>
-            <Dashboard reactions={reactions} />
+          <div className="right1_2">
+            <Dashboard feedbackList={feedbackList} />
           </div>
         </div>
       </div>
+      <AddFeedbackForm onAddFeedback={addFeedback} />
     </>
   );
 }

@@ -1,0 +1,29 @@
+.root {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+.left1 {
+    height: 100%;
+    width: 50%;
+    background-color: lightslategrey;
+    overflow: scroll;
+}
+
+.right1 {
+    height: 100%;
+    width: 50%;
+}
+
+.right1_1 {
+    height: 50%;
+    width: 100%;
+    overflow: scroll
+}
+
+.right1_2 {
+    height: 50%;
+    width: 100%;
+    overflow: scroll;
+    background-color: lightgrey;
+}

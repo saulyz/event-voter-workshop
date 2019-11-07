@@ -1,0 +1,28 @@
+import React  from 'react';
+import ScoreIcon from './ScoreIcon';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import './FeedbackList.css';
+import List from '@material-ui/core/List';
+
+export default function FeedbackList({ feedbackList }) {
+  return (
+    <List>
+      {feedbackList.map(feedback => (
+        <ListItem key={feedback.id} className="feedback-list__item">
+          <ListItemAvatar>
+            <Avatar>
+              <ScoreIcon score={feedback.score} />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+            primary="Mike"
+            secondary={<> 2019.12.01 18:30 {feedback.text}</>}
+          />
+        </ListItem>
+      ))}
+    </List>
+  );
+}
