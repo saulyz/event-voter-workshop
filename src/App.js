@@ -33,11 +33,10 @@ function App() {
       firebase
         .database()
         .ref('/feedback/')
-        .once('value')
-        .then(function(snapshot) {
+        .on('value', function(snapshot) {
           const feedbackList = Object.entries(snapshot.val())
             .map(([id, feedback]) => ({ id, ...feedback }))
-            .sort((a, b) =>  Date.parse(b.datetime) - Date.parse(a.datetime));
+            .sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime));
           setFeedbackList(feedbackList);
         });
     }
