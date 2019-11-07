@@ -1,6 +1,6 @@
 import React from 'react';
 import RemoveIcon from '@material-ui/icons/Remove';
-import ScoreIcon from './ScoreIcon';
+import ScoreIcon from '../components/ScoreIcon';
 import './ScoreDashboardItem.css';
 
 export default function ScoreDashboardItem({ likes, dislikes }) {

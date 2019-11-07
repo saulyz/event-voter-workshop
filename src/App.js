@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import * as firebase from 'firebase';
-import FeedbackList from './FeedbackList';
-import Dashboard from './Dashboard';
-import VideoStream from './VideoStream';
+import FeedbackList from './components/FeedbackList';
+import Dashboard from './dashboard/Dashboard';
+import VideoStream from './components/VideoStream';
 import AddFeedbackForm from './AddFeedbackForm';
-import PageControls from './PageControls';
+import PageControls from './layout/PageControls';
 import './App.css';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyDlmqcy_Wwwjiggko1y5YlSX8cWFRMXbks',
+  authDomain: 'we-can-code-2019.firebaseapp.com',
+  databaseURL: 'https://we-can-code-2019.firebaseio.com',
+  projectId: 'we-can-code-2019',
+  storageBucket: 'we-can-code-2019.appspot.com',
+  messagingSenderId: '33900536726',
+  appId: '1:33900536726:web:d7fd5cc94c26370440f3b7'
+};
 
 function App() {
   const [feedbackFormVisible, setFeedbackFormVisible] = useState(false);
   const [initialized, setInitialized] = useState(false);
   const [feedbackList, setFeedbackList] = useState([]);
-
-  const firebaseConfig = {
-    apiKey: 'AIzaSyDlmqcy_Wwwjiggko1y5YlSX8cWFRMXbks',
-    authDomain: 'we-can-code-2019.firebaseapp.com',
-    databaseURL: 'https://we-can-code-2019.firebaseio.com',
-    projectId: 'we-can-code-2019',
-    storageBucket: 'we-can-code-2019.appspot.com',
-    messagingSenderId: '33900536726',
-    appId: '1:33900536726:web:d7fd5cc94c26370440f3b7'
-  };
 
   useEffect(() => {
     firebase.initializeApp(firebaseConfig);
@@ -34,9 +34,7 @@ function App() {
         .database()
         .ref('/feedback/')
         .on('value', function(snapshot) {
-          const feedbackList = Object.entries(snapshot.val())
-            .map(([id, feedback]) => ({ id, ...feedback }))
-            .sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime));
+          const feedbackList = mapFirebaseToFeedbackList(snapshot);
           setFeedbackList(feedbackList);
         });
     }
@@ -98,6 +96,12 @@ function PageBox({ children }) {
       <div className="page-box__content">{children}</div>
     </div>
   );
+}
+
+function mapFirebaseToFeedbackList(snapshot) {
+  return Object.entries(snapshot.val())
+    .map(([id, feedback]) => ({ id, ...feedback }))
+    .sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime));
 }
 
 export default App;
