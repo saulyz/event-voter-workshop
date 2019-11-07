@@ -42,7 +42,7 @@ function App() {
   let userId = now.getTime();
   firebase.database().ref('feedback/' + userId).set({
     name: name,
-    datetime: now.getFullYear() + "-" + now.getMonth() + "-" + now.getDay() + " " + now.getHours() + ":" + now.getMinutes();,
+    datetime: now.getFullYear() + "-" + now.getMonth() + "-" + now.getDay() + " " + now.getHours() + ":" + now.getMinutes(),
     rating : rating
   });
 }
