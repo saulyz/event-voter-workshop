@@ -19,7 +19,7 @@ export default function ScoreIcon({ score }) {
   if (!score) {
     return null;
   }
-  if (score >= 5) {
+  if (score >= 0) {
     return (
       <Avatar className={classes.scoreIconUp} variant="rounded">
         <ThumbUpIcon />

@@ -24,15 +24,15 @@ export default function AddFeedbackForm({ onAddFeedback, onCancel }) {
   }
 
   function handleClickLike() {
-    setScore(10);
-  }
-
-  function handleClickDislike() {
     setScore(1);
   }
 
-  const likeClicked = score && score >= 5;
-  const dislikeClicked = score && score < 5;
+  function handleClickDislike() {
+    setScore(-1);
+  }
+
+  const likeClicked = score && score >= 0;
+  const dislikeClicked = score && score < 0;
   return (
     <Dialog
       open

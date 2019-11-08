@@ -5,8 +5,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default function Dashboard({ feedbackList = [] }) {
   const validScores = feedbackList.filter(f => f.score).map(f => f.score);
-  const likesCount = validScores.filter(score => score >= 5).length;
-  const dislikeCount = validScores.filter(score => score < 5).length;
+  const likesCount = validScores.filter(score => score >= 0).length;
+  const dislikeCount = validScores.filter(score => score < 0).length;
 
   const completed = 60;
   return (
