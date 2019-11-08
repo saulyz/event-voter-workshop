@@ -8,7 +8,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import './AddFeedbackForm.css';
 
 export default function AddFeedbackForm({ onAddFeedback, onCancel }) {
   const [text, setText] = useState('');

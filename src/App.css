@@ -1,43 +1,30 @@
 body {
   background-color: #fafafa;
 }
-.root {
+.main-content {
   height: 100vh;
   width: 100vw;
   display: flex;
 }
 
-.page-box {
-  height: 100%;
-  padding: 1em;
-}
-
-.page-box__content {
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 1px 3px 0 rgba(0, 0, 0, 0.12);
-  height: 100%;
-  background-color: #fff;
-  overflow: scroll;
-}
-
-.left1 {
+.main-content__left {
   height: 100%;
   width: 50%;
   overflow: scroll;
 }
 
-.right1 {
+.main-content__right {
   height: 100%;
   width: 50%;
 }
 
-.right1_1 {
+.right-side__section-1 {
   height: 50%;
   width: 100%;
   overflow: scroll;
 }
 
-.right1_2 {
+.right-side__section-2 {
   height: 50%;
   width: 100%;
   overflow: scroll;
