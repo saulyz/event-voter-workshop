@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,18 +9,31 @@ import IconButton from '@material-ui/core/IconButton';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 
+const DEFAULT_NAME = 'Anonymous';
+const NAME_STORAGE_KEY = 'author_name';
+
 export default function AddFeedbackForm({ onAddFeedback, onCancel }) {
   const [text, setText] = useState('');
   const [score, setScore] = useState(null);
-  const [name, setName] = useState('Anonymous');
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    const storedName = localStorage.getItem(NAME_STORAGE_KEY);
+    if (storedName) {
+      setName(storedName);
+    }
+  }, [setName]);
 
   function handleFormSubmit() {
     onAddFeedback({
       text,
       score,
-      name,
+      name: name || DEFAULT_NAME,
       id: Math.random()
     });
+    if (name) {
+      localStorage.setItem(NAME_STORAGE_KEY, name);
+    }
   }
 
   function handleClickLike() {
@@ -64,6 +77,7 @@ export default function AddFeedbackForm({ onAddFeedback, onCancel }) {
           label="Name"
           fullWidth
           margin="normal"
+          value={name}
           onChange={e => setName(e.target.value)}
         />
         <TextField
