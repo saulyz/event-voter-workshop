@@ -31,7 +31,7 @@ function App() {
     feedbackStorage.listenForListChanges(eventId, newList =>
       setFeedbackList(newList)
     );
-    feedbackStorage.listenForScoreChanges(eventId, newLike => {console.log(newLike); setLikeCount(newLike);}, newDislike => {console.log(newDislike); setDislikeCount(newDislike);});
+    feedbackStorage.listenForScoreChanges(eventId, newLike => setLikeCount(newLike), newDislike => setDislikeCount(newDislike));
   }, [eventId]);
 
   function addFeedback(feedback) {
