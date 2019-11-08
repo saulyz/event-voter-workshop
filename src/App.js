@@ -33,7 +33,7 @@ function App() {
   }
 
   function showFeedbackForm() {
-    setFeedbackFormVisible(false);
+    setFeedbackFormVisible(true);
   }
 
   return (
