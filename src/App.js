@@ -73,7 +73,7 @@ function App() {
           </div>
         </div>
       </div>
-      <PageControls onOpenFeedbackForm={showFeedbackForm} />
+      <PageControls onOpenFeedbackForm={() => showFeedbackForm()} />
       {feedbackFormVisible && (
         <AddFeedbackForm
           onAddFeedback={addFeedback}

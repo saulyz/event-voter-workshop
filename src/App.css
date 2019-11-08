@@ -29,3 +29,20 @@ body {
   width: 100%;
   overflow: scroll;
 }
+
+@media only screen and (max-width: 600px) {
+  .main-content {
+    height: 100%;
+    flex-direction: column;
+  }
+
+  .main-content__left {
+    width: 100%;
+    overflow: scroll;
+  }
+
+  .main-content__right {
+    height: 100%;
+    width: 100%;
+  }
+}
