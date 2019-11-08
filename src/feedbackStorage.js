@@ -19,7 +19,7 @@ export function addFeedback(eventId, feedback) {
   const now = new Date();
   firebase
     .database()
-    .ref(`event-feedback-list/${eventId}`)
+    .ref(`events/${eventId}/feedback`)
     .push({
       ...feedback,
       datetime: now.toUTCString(),
@@ -30,13 +30,30 @@ export function addFeedback(eventId, feedback) {
 export function listenForListChanges(eventId, onListChanged) {
   firebase
     .database()
-    .ref(`/event-feedback-list/${eventId}`)
+    .ref(`/events/${eventId}/feedback`)
     .orderByChild('timestamp')
     .limitToLast(ITEMS_LIMIT)
     .on('value', function(snapshot) {
       const feedbackList = mapFirebaseToFeedbackList(snapshot);
       feedbackList.reverse();
       onListChanged(feedbackList);
+    });
+}
+
+export function listenForScoreChanges(eventId, onLikeChanged, onDislikeChanged) {
+  listenForCounterChanges(eventId, "like-count", onLikeChanged);
+  listenForCounterChanges(eventId, "dislike-count", onDislikeChanged);
+}
+
+function listenForCounterChanges(eventId, counter, onCounterChange) {
+  firebase
+    .database()
+    .ref(`/events/${eventId}/${counter}`)
+    .on('value', function(snapshot) {
+      if (!snapshot || !snapshot.val()) {
+        onCounterChange(0);
+      }
+      onCounterChange(snapshot.val());
     });
 }
 
