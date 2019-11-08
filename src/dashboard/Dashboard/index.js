@@ -1,5 +1,5 @@
 import React from 'react';
-import ScoreDashboardItem from './ScoreDashboardItem';
+import ScoreDashboardItem from '../ScoreDashboardItem';
 import { Box, Typography } from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
