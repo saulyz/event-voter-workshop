@@ -14,20 +14,20 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function ScoreIcon({ score }) {
+export default function ScoreIcon({ score, onClick }) {
   const classes = useStyles();
   if (!score) {
     return null;
   }
   if (score >= 0) {
     return (
-      <Avatar className={classes.scoreIconUp} variant="rounded">
+      <Avatar className={classes.scoreIconUp} variant="rounded" onClick={onClick}>
         <ThumbUpIcon />
       </Avatar>
     );
   } else {
     return (
-      <Avatar className={classes.scoreIconDown} variant="rounded">
+      <Avatar className={classes.scoreIconDown} variant="rounded" onClick={onClick}>
         <ThumbDownIcon />
       </Avatar>
     );

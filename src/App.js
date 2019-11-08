@@ -15,6 +15,7 @@ function App() {
   const [feedbackFormVisible, setFeedbackFormVisible] = useState(false);
   const [feedbackList, setFeedbackList] = useState([]);
   const [eventId, setEventId] = useState(DEFAULT_EVENT_ID);
+  const [initialFormValues, setInitialFormValues] = useState({});
 
   useEffect(() => {
     feedbackStorage.initialize();
@@ -39,7 +40,8 @@ function App() {
     setFeedbackFormVisible(false);
   }
 
-  function showFeedbackForm() {
+  function showFeedbackForm(initialValues = {}) {
+    setInitialFormValues(initialValues);
     setFeedbackFormVisible(true);
   }
 
@@ -62,7 +64,11 @@ function App() {
           </div>
           <div className="right-side__section-1">
             <PageBox>
-              <Dashboard feedbackList={feedbackList} />
+              <Dashboard
+                feedbackList={feedbackList}
+                onLikeClick={() => showFeedbackForm({ score: 1 })}
+                onDislikeClick={() => showFeedbackForm({ score: -1 })}
+              />
             </PageBox>
           </div>
         </div>
@@ -72,6 +78,7 @@ function App() {
         <AddFeedbackForm
           onAddFeedback={addFeedback}
           onCancel={hideFeedbackForm}
+          initialValues={initialFormValues}
         />
       )}
     </>

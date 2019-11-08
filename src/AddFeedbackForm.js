@@ -12,36 +12,44 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 const DEFAULT_NAME = 'Anonymous';
 const NAME_STORAGE_KEY = 'author_name';
 
-export default function AddFeedbackForm({ onAddFeedback, onCancel }) {
-  const [text, setText] = useState('');
-  const [score, setScore] = useState(null);
-  const [name, setName] = useState('');
+export default function AddFeedbackForm({
+  onAddFeedback,
+  onCancel,
+  initialValues = {}
+}) {
+  const [formValues, setFormValues] = useState(initialValues);
+  const { score } = formValues;
+
+  function updateForm(newFormValues) {
+    setFormValues(previousFormValues => ({
+      ...previousFormValues,
+      ...newFormValues
+    }));
+  }
 
   useEffect(() => {
-    const storedName = localStorage.getItem(NAME_STORAGE_KEY);
-    if (storedName) {
-      setName(storedName);
+    const name = localStorage.getItem(NAME_STORAGE_KEY);
+    if (name) {
+      setFormValues({ ...formValues, name: name });
     }
-  }, [setName]);
+  }, [setFormValues]);
 
   function handleFormSubmit() {
     onAddFeedback({
-      text,
-      score,
-      name: name || DEFAULT_NAME,
-      id: Math.random()
+      ...formValues,
+      name: formValues.name || DEFAULT_NAME
     });
-    if (name) {
-      localStorage.setItem(NAME_STORAGE_KEY, name);
+    if (formValues.name) {
+      localStorage.setItem(NAME_STORAGE_KEY, formValues.name);
     }
   }
 
   function handleClickLike() {
-    setScore(1);
+    updateForm({ score: 1 });
   }
 
   function handleClickDislike() {
-    setScore(-1);
+    updateForm({ score: -1 });
   }
 
   const likeClicked = score && score >= 0;
@@ -77,8 +85,8 @@ export default function AddFeedbackForm({ onAddFeedback, onCancel }) {
           label="Name"
           fullWidth
           margin="normal"
-          value={name}
-          onChange={e => setName(e.target.value)}
+          value={formValues.name}
+          onChange={e => updateForm({ name: e.target.value })}
         />
         <TextField
           id="feedback-text"
@@ -88,7 +96,7 @@ export default function AddFeedbackForm({ onAddFeedback, onCancel }) {
           fullWidth
           margin="normal"
           helperText="comments are optional"
-          onChange={e => setText(e.target.value)}
+          onChange={e => updateForm({ text: e.target.value })}
         />
       </DialogContent>
       <DialogActions>
