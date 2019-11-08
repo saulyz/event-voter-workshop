@@ -40,20 +40,15 @@ export function listenForListChanges(eventId, onListChanged) {
     });
 }
 
-export function listenForScoreChanges(eventId, onLikeChanged, onDislikeChanged) {
-  listenForCounterChanges(eventId, "like-count", onLikeChanged);
-  listenForCounterChanges(eventId, "dislike-count", onDislikeChanged);
-}
-
-function listenForCounterChanges(eventId, counter, onCounterChange) {
+export function listenForScoreChanges(eventId, onScoreChanged) {
   firebase
     .database()
-    .ref(`/events/${eventId}/${counter}`)
+    .ref(`/events/${eventId}/score`)
     .on('value', function(snapshot) {
       if (!snapshot || !snapshot.val()) {
-        onCounterChange(0);
+        onScoreChanged({ "dislike-count": 0, "like-count": 0 });
       }
-      onCounterChange(snapshot.val());
+      onScoreChanged(snapshot.val());
     });
 }
 

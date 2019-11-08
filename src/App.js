@@ -16,8 +16,7 @@ function App() {
   const [feedbackList, setFeedbackList] = useState([]);
   const [eventId, setEventId] = useState(DEFAULT_EVENT_ID);
   const [initialFormValues, setInitialFormValues] = useState({});
-  const [likeCount, setLikeCount] = useState(0);
-  const [dislikeCount, setDislikeCount] = useState(0);
+  const [score, setScore] = useState({ "dislike-count": 0, "like-count": 0 });
 
   useEffect(() => {
     feedbackStorage.initialize();
@@ -31,7 +30,7 @@ function App() {
     feedbackStorage.listenForListChanges(eventId, newList =>
       setFeedbackList(newList)
     );
-    feedbackStorage.listenForScoreChanges(eventId, newLike => setLikeCount(newLike), newDislike => setDislikeCount(newDislike));
+    feedbackStorage.listenForScoreChanges(eventId, newScore => setScore(newScore));
   }, [eventId]);
 
   function addFeedback(feedback) {
@@ -70,8 +69,7 @@ function App() {
               <Dashboard
                 onLikeClick={() => showFeedbackForm({ score: 1 })}
                 onDislikeClick={() => showFeedbackForm({ score: -1 })}
-                likeCount={likeCount}
-                dislikeCount={dislikeCount}
+                score={score}
               />
             </PageBox>
           </div>
