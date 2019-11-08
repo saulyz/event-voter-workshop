@@ -9,6 +9,9 @@ const firebaseConfig = {
   messagingSenderId: '33900536726',
   appId: '1:33900536726:web:d7fd5cc94c26370440f3b7'
 };
+
+const ITEMS_LIMIT = 50;
+
 export function initialize() {
   firebase.initializeApp(firebaseConfig);
 }
@@ -28,9 +31,11 @@ export function listenForListChanges(eventId, onListChanged) {
   firebase
     .database()
     .ref(`/event-feedback-list/${eventId}`)
-    .orderByChild('starCount')
+    .orderByChild('timestamp')
+    .limitToLast(ITEMS_LIMIT)
     .on('value', function(snapshot) {
       const feedbackList = mapFirebaseToFeedbackList(snapshot);
+      feedbackList.reverse();
       onListChanged(feedbackList);
     });
 }
