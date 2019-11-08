@@ -3,7 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import FeedbackList from './components/FeedbackList';
 import Dashboard from './dashboard/Dashboard';
 import VideoStream from './components/VideoStream';
-import AddFeedbackForm from './components/AddFeedbackForm';
+import AddFeedbackForm from './AddFeedbackForm';
 import PageControls from './layout/PageControls';
 import * as feedbackStorage from './feedbackStorage';
 import './App.css';

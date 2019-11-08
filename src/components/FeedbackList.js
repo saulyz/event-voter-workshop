@@ -1,5 +1,5 @@
 import React  from 'react';
-import ScoreIcon from '../ScoreIcon';
+import ScoreIcon from './ScoreIcon';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
