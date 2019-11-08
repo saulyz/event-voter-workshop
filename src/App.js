@@ -9,22 +9,29 @@ import * as feedbackStorage from './feedbackStorage';
 import './App.css';
 import PageBox from './layout/PageBox';
 
-const EVENT_ID = 123;
-const VIDEO_URL = 'https://www.youtube.com/embed/x7cQ3mrcKaY?controls=0';
+const DEFAULT_EVENT_ID = 'x7cQ3mrcKaY';
 
 function App() {
   const [feedbackFormVisible, setFeedbackFormVisible] = useState(false);
   const [feedbackList, setFeedbackList] = useState([]);
+  const [eventId, setEventId] = useState(DEFAULT_EVENT_ID);
 
   useEffect(() => {
     feedbackStorage.initialize();
-    feedbackStorage.listenForListChanges(EVENT_ID, newList =>
-      setFeedbackList(newList)
-    );
+    const pathEventId = window.location.pathname.replace('/', '');
+    if (pathEventId) {
+      setEventId(pathEventId);
+    }
   }, []);
 
+  useEffect(() => {
+    feedbackStorage.listenForListChanges(eventId, newList =>
+      setFeedbackList(newList)
+    );
+  }, [eventId]);
+
   function addFeedback(feedback) {
-    feedbackStorage.addFeedback(EVENT_ID, feedback);
+    feedbackStorage.addFeedback(eventId, feedback);
     hideFeedbackForm();
   }
 
@@ -48,7 +55,9 @@ function App() {
         <div className="main-content__right">
           <div className="right-side__section-1">
             <PageBox>
-              <VideoStream videoUrl={VIDEO_URL} />
+              <VideoStream
+                videoUrl={`https://www.youtube.com/embed/${eventId}?controls=0`}
+              />
             </PageBox>
           </div>
           <div className="right-side__section-1">
