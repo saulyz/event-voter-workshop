@@ -30,7 +30,9 @@ function App() {
     feedbackStorage.listenForListChanges(eventId, newList =>
       setFeedbackList(newList)
     );
-    feedbackStorage.listenForScoreChanges(eventId, newScore => setScore(newScore));
+    feedbackStorage.listenForScoreChanges(eventId, newScore =>
+      setScore(newScore)
+    );
   }, [eventId]);
 
   function addFeedback(feedback) {
