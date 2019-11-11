@@ -17,39 +17,34 @@ export default function AddFeedbackForm({
   onCancel,
   initialValues = {}
 }) {
-  const [formValues, replaceFormValues] = useState(initialValues);
-  const { score } = formValues;
-
-  function updateForm(newFormValues) {
-    replaceFormValues(previousFormValues => ({
-      ...previousFormValues,
-      ...newFormValues
-    }));
-  }
+  const [name, setName] = useState(initialValues.name || '');
+  const [score, setScore] = useState(initialValues.score);
+  const [text, setText] = useState(initialValues.text || '');
 
   useEffect(() => {
     const name = localStorage.getItem(NAME_STORAGE_KEY);
     if (name) {
-      replaceFormValues({ ...formValues, name: name });
+      setName(name);
     }
-  }, [replaceFormValues]);
+  }, [setName]);
 
   function handleFormSubmit() {
     onAddFeedback({
-      ...formValues,
-      name: formValues.name || DEFAULT_NAME
+      name: name || DEFAULT_NAME,
+      score,
+      text
     });
-    if (formValues.name) {
-      localStorage.setItem(NAME_STORAGE_KEY, formValues.name);
+    if (name) {
+      localStorage.setItem(NAME_STORAGE_KEY, name);
     }
   }
 
   function handleClickLike() {
-    updateForm({ score: 1 });
+    setScore(1);
   }
 
   function handleClickDislike() {
-    updateForm({ score: -1 });
+    setScore(-1);
   }
 
   const likeClicked = score && score >= 0;
@@ -85,8 +80,8 @@ export default function AddFeedbackForm({
           label="Name"
           fullWidth
           margin="normal"
-          value={formValues.name}
-          onChange={e => updateForm({ name: e.target.value })}
+          value={name}
+          onChange={e => setName(e.target.value)}
         />
         <TextField
           id="feedback-text"
@@ -96,7 +91,7 @@ export default function AddFeedbackForm({
           fullWidth
           margin="normal"
           helperText="comments are optional"
-          onChange={e => updateForm({ text: e.target.value })}
+          onChange={e => setText(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
