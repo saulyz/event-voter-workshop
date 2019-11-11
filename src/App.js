@@ -16,7 +16,7 @@ function App() {
   const [feedbackList, setFeedbackList] = useState([]);
   const [eventId, setEventId] = useState(DEFAULT_EVENT_ID);
   const [initialFormValues, setInitialFormValues] = useState({});
-  const [score, setScore] = useState({ "dislike-count": 0, "like-count": 0 });
+  const [score, setScore] = useState({ dislikeCount: 0, likeCount: 0 });
 
   useEffect(() => {
     feedbackStorage.initialize();

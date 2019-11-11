@@ -46,7 +46,7 @@ export function listenForScoreChanges(eventId, onScoreChanged) {
     .ref(`/events/${eventId}/score`)
     .on('value', function(snapshot) {
       if (!snapshot || !snapshot.val()) {
-        onScoreChanged({ "dislike-count": 0, "like-count": 0 });
+        onScoreChanged({ dislikeCount: 0, likeCount: 0 });
       }
       onScoreChanged(snapshot.val());
     });
