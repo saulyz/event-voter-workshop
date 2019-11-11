@@ -26,8 +26,8 @@ export default function Dashboard({
         <LinearProgress variant="determinate" value={completed} />
       </div>
       <ScoreDashboardItem
-        likes={score.likeCount}
-        dislikes={score.dislikeCount}
+        likes={score && score.likeCount}
+        dislikes={score && score.dislikeCount}
         onLikeClick={onLikeClick}
         onDislikeClick={onDislikeClick}
       />
