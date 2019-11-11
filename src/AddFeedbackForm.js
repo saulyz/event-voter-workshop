@@ -17,11 +17,11 @@ export default function AddFeedbackForm({
   onCancel,
   initialValues = {}
 }) {
-  const [formValues, setFormValues] = useState(initialValues);
+  const [formValues, replaceFormValues] = useState(initialValues);
   const { score } = formValues;
 
   function updateForm(newFormValues) {
-    setFormValues(previousFormValues => ({
+    replaceFormValues(previousFormValues => ({
       ...previousFormValues,
       ...newFormValues
     }));
@@ -30,9 +30,9 @@ export default function AddFeedbackForm({
   useEffect(() => {
     const name = localStorage.getItem(NAME_STORAGE_KEY);
     if (name) {
-      setFormValues({ ...formValues, name: name });
+      replaceFormValues({ ...formValues, name: name });
     }
-  }, [setFormValues]);
+  }, [replaceFormValues]);
 
   function handleFormSubmit() {
     onAddFeedback({
