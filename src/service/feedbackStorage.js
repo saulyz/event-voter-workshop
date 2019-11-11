@@ -1,14 +1,6 @@
 import * as firebase from 'firebase';
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyDlmqcy_Wwwjiggko1y5YlSX8cWFRMXbks',
-  authDomain: 'we-can-code-2019.firebaseapp.com',
-  databaseURL: 'https://we-can-code-2019.firebaseio.com',
-  projectId: 'we-can-code-2019',
-  storageBucket: 'we-can-code-2019.appspot.com',
-  messagingSenderId: '33900536726',
-  appId: '1:33900536726:web:d7fd5cc94c26370440f3b7'
-};
+const firebaseConfig = require('./config.json');
 
 const ITEMS_LIMIT = 50;
 
